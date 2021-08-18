@@ -1,14 +1,19 @@
 # TRANSLATION API WITH CACHE IMPLEMENTATION
 A design of an API for translation of text to any particular language the user wants. There is implementation of cache using Database for repeatedly hitting api's.<br/>
 
-**Working On**
--
+**Hosted On**
+- https://translation-codeyoung.herokuapp.com/
 
 **Tech stack used**<br/>
   >Nodejs<br/>
   >Express framework<br/>
   >Sequelize<br/>
 
+**Working**
+- Install dependencies
+- run node database.js
+- run node server.js
+- and listen on port 5000
 
 **Theme of the API**
 - Translates text<br/>

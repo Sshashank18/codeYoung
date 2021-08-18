@@ -13,12 +13,13 @@
         <h1 class="text-center">
             Speech Translator Online
         </h1>
+        <!-- Input Data Text -->
         <form action="/speechtranslator" method="post">
           <div class="form-group">
               <label for="speech">Write Text:</label>
               <textarea class="form-control" name="speech" required id="" cols="30" rows="10"></textarea>
           </div>
-    
+    <!-- Choosing Language Converted to -->
           <div class="form-group">
               <label for="format">Select Language of Voice:</label>
               <select class="form-control" name="language" id="">
@@ -66,6 +67,8 @@
                   Translate
               </button>
           </div>
+
+          <!-- Translated Text returned -->
           <div class="form-group">
               <label for="translated">Translated Text:</label>
               <textarea class="form-control" name="translated" id="" cols="30" rows="10"><%=translated%></textarea>

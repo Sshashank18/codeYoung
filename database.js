@@ -1,5 +1,6 @@
 const { Sequelize } = require("sequelize");
 
+// Initialising Database
 const database = new Sequelize('Translations-cache','codeyoung','codeyoung',{
     host:'localhost',
     dialect:'sqlite',
@@ -7,6 +8,7 @@ const database = new Sequelize('Translations-cache','codeyoung','codeyoung',{
     logging:false
 });
   
+// Initializing Table
 const Translations = database.define('translations',{
     Speech:{
         type: Sequelize.STRING,

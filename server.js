@@ -1,27 +1,36 @@
+// Importing Libraries
 const express = require("express");
 
 const translate = require('@vitalets/google-translate-api');
 
+
+// Importing database from database.js
 const {database,Translations} = require('./database')
 
+// Initializing port
+const PORT = process.env.PORT || 5000;
+
+// Setting up Express
 const app = express();
 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}));
 
-const PORT = process.env.PORT || 5000;
 
 app.use(express.static('./views'));
 app.set('view engine', 'ejs');
 
-app.get('/speechtranslator',(req,res) => {
-  res.render('speechtranslator',{title:"Speech Translator Online to Multiple Languages - Free Media Tools",translated:""})
+// Getting home page
+app.get('/',(req,res) => {
+  res.render('speechtranslator',{translated:""})
 })
 
+// Translation and Storing part
 app.post('/speechtranslator',(req,res) => {
 
   console.log(req.body);
 
+    // Finding if The Text is in the Database or not.
   Translations.findOne({
     where: {
      Speech: req.body.speech,
@@ -29,10 +38,14 @@ app.post('/speechtranslator',(req,res) => {
     }
    }).then((resp)=>{
        if(resp){
-            res.render('speechtranslator',{title:"Speech Translator Online to Multiple Languages - Free Media Tools",translated:resp.dataValues.TranslatedText})
+            //  If present, accessing data from database
+            res.render('speechtranslator',{translated:resp.dataValues.TranslatedText})
        }else{
+            //    If not present, Fetching data from API
             translate(req.body.speech, {to: req.body.language}).then(response => {
-                res.render('speechtranslator',{title:"Speech Translator Online to Multiple Languages - Free Media Tools",translated:response.text})
+                res.render('speechtranslator',{translated:response.text})
+
+                // Saving New Data in the Database
                 Translations.create({
                     Speech: req.body.speech,
                     convertedTo: req.body.language,
@@ -51,6 +64,7 @@ app.post('/speechtranslator',(req,res) => {
 })
 
 
+// Syncing Database and connecting to port.
 database.sync()
     .then(()=>{
         console.log('SQL database synced.');
